@@ -1,6 +1,7 @@
 package service
 
 import (
+	"go/types"
 	"gomvc/config"
 	"gomvc/model"
 )
@@ -22,9 +23,17 @@ func (us *UserService) GetUsers() []model.User {
 	return users
 }
 
-func (us *UserService) GetUserById(id int) model.User {
+func (us *UserService) GetUserById(id int) (model.User, error) {
 	user := model.User{}
-	//config.DatabaseContext.Table("users").Find(&user)
-	config.DatabaseContext.First(&user, id)
-	return user
+	var count int64
+	config.DatabaseContext.First(&user, id).Count(&count)
+
+	var err error
+
+	if count == 0 {
+		err = types.Error{Msg: "User not found"}
+		return user, err
+	}
+
+	return user, nil
 }

@@ -44,6 +44,11 @@ func (u *UserController) getUsers(e echo.Context) error {
 
 func (u *UserController) getUserById(e echo.Context) error {
 	id, _ := strconv.Atoi(e.Param("id"))
-	user := u.userService.GetUserById(id)
+	user, err := u.userService.GetUserById(id)
+
+	if err != nil {
+		return echo.NewHTTPError(500, "User not found")
+	}
+
 	return e.JSON(http.StatusOK, user)
 }
