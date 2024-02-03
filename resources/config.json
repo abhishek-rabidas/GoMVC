@@ -1,0 +1,8 @@
+{
+  "server": {
+    "port": "3050"
+  },
+  "database": {
+    "url": "root:admin@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
+  }
+}

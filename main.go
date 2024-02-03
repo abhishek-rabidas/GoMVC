@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/spf13/viper"
+	"gomvc/controller"
 )
 
 func init() {
@@ -15,4 +16,10 @@ func init() {
 
 func main() {
 
+	server := controller.NewEchoServer()
+
+	err := server.Start(":" + viper.GetString("server.port"))
+	if err != nil {
+		panic(err)
+	}
 }
