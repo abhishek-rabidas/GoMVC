@@ -17,7 +17,7 @@ func init() {
 func main() {
 
 	server := controller.NewEchoServer()
-
+	defer server.Close()
 	err := server.Start(":" + viper.GetString("server.port"))
 	if err != nil {
 		panic(err)

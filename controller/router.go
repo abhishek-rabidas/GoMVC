@@ -2,15 +2,18 @@ package controller
 
 import "github.com/labstack/echo/v4"
 
+type Controllers struct {
+	userController *UserController
+}
+
 func NewEchoServer() *echo.Echo {
 	e := echo.New()
-	controllers(e)
+	setup(e)
 	return e
 }
 
-func controllers(e *echo.Echo) {
-	e.GET("/", func(c echo.Context) error {
-		return c.String(200, "Server is up")
-	})
+func setup(e *echo.Echo) {
+	apiController := e.Group("/api")
+	NewUserController(apiController.Group("/user"))
 
 }
