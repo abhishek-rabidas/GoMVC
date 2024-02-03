@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/spf13/viper"
+	"gomvc/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -17,6 +18,15 @@ func init() {
 
 	if err != nil {
 		log.Fatal(err)
+	} else {
+		log.Println("Database connection established")
+	}
+
+	err = DatabaseContext.AutoMigrate(&model.User{})
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		log.Println("Auto migration completed")
 	}
 
 }
