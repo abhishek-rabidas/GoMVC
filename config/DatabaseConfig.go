@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/spf13/viper"
+	"fmt"
 	"gomvc/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -10,11 +10,13 @@ import (
 
 var DatabaseContext *gorm.DB
 
-func init() {
+func EstablishDatabaseConnection(dsn string) {
 
 	var err error
 
-	DatabaseContext, err = gorm.Open(mysql.Open(viper.GetString("database.url")), &gorm.Config{})
+	fmt.Println("Connection establishing for: " + dsn)
+
+	DatabaseContext, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal(err)

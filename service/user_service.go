@@ -1,5 +1,10 @@
 package service
 
+import (
+	"gomvc/config"
+	"gomvc/model"
+)
+
 type UserService struct {
 	users []string
 }
@@ -8,8 +13,8 @@ func NewUserService() *UserService {
 	return &UserService{}
 }
 
-func (us *UserService) AddUser(user string) {
-	us.users = append(us.users, user)
+func (us *UserService) AddUser(user *model.User) {
+	config.DatabaseContext.Save(user)
 }
 
 func (us *UserService) GetUsers() []string {

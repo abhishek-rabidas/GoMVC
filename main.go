@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/spf13/viper"
+	"gomvc/config"
 	"gomvc/controller"
 )
 
@@ -15,7 +16,7 @@ func init() {
 }
 
 func main() {
-
+	config.EstablishDatabaseConnection(viper.GetString("database.url"))
 	server := controller.NewEchoServer()
 	defer server.Close()
 	err := server.Start(":" + viper.GetString("server.port"))
