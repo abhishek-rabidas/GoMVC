@@ -45,5 +45,5 @@ func (u *UserController) getUsers(e echo.Context) error {
 func (u *UserController) getUserById(e echo.Context) error {
 	id, _ := strconv.Atoi(e.Param("id"))
 	user := u.userService.GetUserById(id)
-	return e.String(http.StatusOK, user)
+	return e.JSON(http.StatusOK, user)
 }
