@@ -1,12 +1,9 @@
 package controller
 
 import (
-	"encoding/json"
 	"github.com/labstack/echo/v4"
 	"gomvc/model"
 	"gomvc/service"
-	"io"
-	"log"
 	"net/http"
 	"strconv"
 )
@@ -24,16 +21,7 @@ func NewUserController(e *echo.Group) *UserController {
 }
 
 func (u *UserController) addUser(e echo.Context) error {
-	user := model.User{}
-	body, err := io.ReadAll(e.Request().Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = json.Unmarshal(body, &user)
-	if err != nil {
-		log.Fatal(err)
-	}
-	u.userService.AddUser(&user)
+	u.userService.AddUser(model.UnMarshalUser(e.Request().Body))
 	return e.JSON(http.StatusOK, "User added")
 }
 
