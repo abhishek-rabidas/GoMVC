@@ -24,7 +24,7 @@ func EstablishDatabaseConnection(dsn string) {
 		log.Println("Database connection established")
 	}
 
-	err = DatabaseContext.AutoMigrate(&model.User{})
+	err = DatabaseContext.AutoMigrate(&model.User{}, &model.Team{})
 	if err != nil {
 		log.Fatal(err)
 	} else {

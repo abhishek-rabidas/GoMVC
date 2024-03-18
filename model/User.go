@@ -9,9 +9,11 @@ import (
 
 type User struct {
 	gorm.Model
-	Name  string `json:"name"`
-	Phone string `json:"phone"`
-	Email string `json:"email"`
+	Name   string `json:"name"`
+	Phone  string `json:"phone"`
+	Email  string `json:"email"`
+	Team   Team   `gorm:"foreignKey:TeamId"`
+	TeamID uint
 }
 
 func UnMarshalUser(request io.ReadCloser) *User {
